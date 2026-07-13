@@ -62,25 +62,4 @@ export const PROJECTS: Project[] = [
     accent: "#06b6d4",
     repoUrl: "https://github.com/Nkole101/currency-converter-cli",
   },
-  {
-    slug: "zambia-dashboard",
-    title: "Zambia Live Macroeconomic Dashboard",
-    period: "2025",
-    tagline: "Automated data pipeline · World Bank, IMF & FRED APIs",
-    description:
-      "A fully automated Python pipeline that fetches, merges, and visualises live Zambian macroeconomic data — GDP, inflation, exchange rate, and copper price — with zero manual downloads. Outputs a terminal summary, merged CSV datasets, and a 3-panel matplotlib dashboard.",
-    tech: ["Python", "Pandas", "Matplotlib", "World Bank API", "IMF API", "FRED API"],
-    accent: "#f59e0b",
-  },
-  {
-    slug: "begreat",
-    title: "beGreat",
-    period: "2025",
-    tagline: "Career-intake & CV workflow platform",
-    description:
-      "A career-intake and CV workflow app: a rich profile intake form, an admin dashboard behind bearer-token auth, and generated shareable public profile pages with theme/template choices — React client, Express API, PostgreSQL persistence.",
-    tech: ["React", "Vite", "Express", "PostgreSQL", "REST API"],
-    accent: "#22c55e",
-    repoUrl: "https://github.com/Nkole101/beGreat",
-  },
 ];
