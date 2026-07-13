@@ -40,13 +40,21 @@ export function HeroLaptop() {
     window.addEventListener("mouseout", handleLeave, { passive: true });
 
     let raf = 0;
+    let t = 0;
     function tick() {
-      current.current.x += (target.current.x - current.current.x) * 0.07;
-      current.current.y += (target.current.y - current.current.y) * 0.07;
+      t += 0.02;
+      current.current.x += (target.current.x - current.current.x) * 0.1;
+      current.current.y += (target.current.y - current.current.y) * 0.1;
+
+      // Continuous idle sway so the laptop is never fully still, even
+      // before the cursor has moved — the mouse tilt layers on top of it.
+      const idleY = Math.sin(t) * 7;
+      const idleX = Math.cos(t * 0.6) * 3;
+
       const rig = rigRef.current;
       if (rig) {
-        const rotY = current.current.x * 16;
-        const rotX = current.current.y * -9;
+        const rotY = current.current.x * 28 + idleY;
+        const rotX = current.current.y * -18 + idleX;
         rig.style.transform = `rotateX(${rotX}deg) rotateY(${rotY}deg)`;
       }
       raf = requestAnimationFrame(tick);

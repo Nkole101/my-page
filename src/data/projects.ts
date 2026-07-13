@@ -3,6 +3,11 @@ export interface CaseStudyDiagramNode {
   detail: string;
 }
 
+export interface PwaPlatformGuide {
+  platform: string;
+  steps: string[];
+}
+
 export interface Project {
   slug: string;
   title: string;
@@ -12,6 +17,7 @@ export interface Project {
   tech: string[];
   accent: string;
   repoUrl?: string;
+  liveUrl?: string;
   private?: boolean;
   caseStudy?: {
     problem: string;
@@ -19,6 +25,7 @@ export interface Project {
     decisions: string[];
     diagram: CaseStudyDiagramNode[];
   };
+  pwaGuide?: PwaPlatformGuide[];
 }
 
 export const PROJECTS: Project[] = [
@@ -61,5 +68,35 @@ export const PROJECTS: Project[] = [
     tech: ["Python", "FastAPI", "React", "Vite", "vite-plugin-pwa", "Workbox", "REST API"],
     accent: "#06b6d4",
     repoUrl: "https://github.com/Nkole101/currency-converter-cli",
+    liveUrl: "https://currency-converter-cli.vercel.app",
+    pwaGuide: [
+      {
+        platform: "iOS (iPhone / iPad)",
+        steps: [
+          "Open the link in Safari — iOS only allows installing PWAs from Safari, not Chrome.",
+          "Tap the Share icon in the toolbar.",
+          'Scroll down and tap "Add to Home Screen".',
+          'Tap "Add" — the app now launches full-screen from your Home Screen, no browser bar.',
+        ],
+      },
+      {
+        platform: "Android",
+        steps: [
+          "Open the link in Chrome.",
+          "Tap the three-dot menu in the top right.",
+          'Tap "Install app" (or "Add to Home screen").',
+          "Confirm the prompt — it installs with its own icon and launches like a native app.",
+        ],
+      },
+      {
+        platform: "Windows / macOS",
+        steps: [
+          "Open the link in Chrome or Edge.",
+          "Click the install icon in the address bar (a monitor with a down arrow, or a plus icon).",
+          'Click "Install" in the prompt that appears.',
+          "It opens in its own app window and gets added to your Start Menu / Applications folder.",
+        ],
+      },
+    ],
   },
 ];
