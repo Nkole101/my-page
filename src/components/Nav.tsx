@@ -20,8 +20,11 @@ export function Nav() {
       }`}
     >
       <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
-        <a href="#hero" className="font-display text-lg font-bold tracking-tight text-white">
-          NM<span className="text-cyan-400">.</span>
+        <a href="#hero" aria-label="Back to top" className="group flex items-center">
+          <span
+            className="block h-3 w-3 rotate-45 rounded-[3px] transition-transform duration-300 group-hover:rotate-[135deg]"
+            style={{ background: "linear-gradient(135deg, #818cf8, #22d3ee)" }}
+          />
         </a>
 
         <div className="hidden gap-8 md:flex">

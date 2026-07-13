@@ -28,7 +28,7 @@ export function Contact() {
         </motion.h2>
 
         <p className="mx-auto mb-10 max-w-sm text-base leading-relaxed text-slate-300">
-          Open to internships, freelance work, and full-time software engineering roles.
+          Currently taking on freelance projects and collaborations.
         </p>
 
         <a

@@ -39,3 +39,114 @@ body {
   background-clip: text;
   color: transparent;
 }
+
+/* ─── Hero 3D laptop ─────────────────────────────────────────────────── */
+
+.laptop-scene {
+  width: clamp(230px, 60vw, 310px);
+  margin: 0 auto;
+  perspective: 1300px;
+}
+
+.laptop-float {
+  animation: laptop-bob 6s ease-in-out infinite;
+}
+
+@keyframes laptop-bob {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-12px);
+  }
+}
+
+.laptop-viewport {
+  transform-style: preserve-3d;
+  transform: rotateX(20deg) rotateY(-20deg);
+}
+
+.laptop-rig {
+  transform-style: preserve-3d;
+  will-change: transform;
+}
+
+.laptop-screen {
+  width: 100%;
+  height: 11rem;
+  padding: 1.1rem 1rem;
+  border-radius: 0.85rem 0.85rem 0.2rem 0.2rem;
+  background: linear-gradient(160deg, #1e2540 0%, #0b1120 65%);
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  box-shadow:
+    0 0 70px rgba(34, 211, 238, 0.22),
+    inset 0 0 36px rgba(99, 102, 241, 0.1);
+  transform-origin: bottom center;
+  transform: rotateX(-5deg);
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.laptop-screen-dots {
+  display: flex;
+  gap: 0.35rem;
+}
+
+.laptop-screen-dots span {
+  width: 0.4rem;
+  height: 0.4rem;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.22);
+}
+
+.laptop-screen-lines {
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+}
+
+.laptop-screen-lines span {
+  display: block;
+  height: 0.4rem;
+  border-radius: 999px;
+  opacity: 0.85;
+}
+
+.laptop-keyboard {
+  width: 100%;
+  height: 5.5rem;
+  border-radius: 0.3rem 0.3rem 0.9rem 0.9rem;
+  background: linear-gradient(165deg, #262c42 0%, #0d1220 100%);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  box-shadow: 0 22px 40px -18px rgba(0, 0, 0, 0.65);
+  transform-origin: top center;
+  transform: rotateX(88deg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.laptop-trackpad {
+  width: 4.2rem;
+  height: 2.4rem;
+  border-radius: 0.4rem;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+}
+
+.laptop-shadow {
+  width: 60%;
+  height: 1.5rem;
+  margin: 0.5rem auto 0;
+  border-radius: 999px;
+  background: radial-gradient(ellipse, rgba(0, 0, 0, 0.45), transparent 70%);
+  filter: blur(2px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .laptop-float {
+    animation: none;
+  }
+}

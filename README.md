@@ -1,4 +1,4 @@
-# Nkole Mwanza — Portfolio
+# Martin Nkole Mwanza — Portfolio
 
 Personal portfolio site, built with React 19, Vite, TypeScript, Tailwind CSS v4, and Framer Motion.
 Deployed to GitHub Pages via GitHub Actions on every push to `main`.

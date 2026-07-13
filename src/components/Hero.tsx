@@ -1,5 +1,5 @@
 import { ChevronDown } from "lucide-react";
-import { HeroCanvas } from "./HeroCanvas";
+import { HeroLaptop } from "./HeroLaptop";
 
 export function Hero() {
   return (
@@ -7,21 +7,21 @@ export function Hero() {
       id="hero"
       className="relative flex min-h-screen items-center justify-center overflow-hidden bg-navy"
     >
-      <div className="absolute inset-0">
-        <HeroCanvas />
-      </div>
-
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_75%_75%_at_50%_45%,transparent_20%,var(--color-navy)_78%)]" />
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_60%_50%_at_50%_35%,rgba(99,102,241,0.16),transparent_70%)]" />
       <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-paper to-transparent" />
 
       <div className="relative z-10 mx-auto max-w-4xl px-6 text-center">
-        <p className="mb-6 font-mono text-xs tracking-[0.4em] text-cyan-300/90">
-          SOFTWARE ENGINEER — ERP DEVELOPER
+        <p className="mb-8 font-mono text-xs tracking-[0.4em] text-cyan-300/90">
+          SOFTWARE ENGINEER — SOLUTIONS EXPERT
         </p>
 
+        <div className="mb-8">
+          <HeroLaptop />
+        </div>
+
         <h1 className="mb-8 font-display font-black leading-[0.95] tracking-tight">
-          <span className="block text-[clamp(3rem,10vw,7rem)] text-white">Nkole</span>
-          <span className="text-gradient block text-[clamp(3rem,10vw,7rem)]">Mwanza</span>
+          <span className="block text-[clamp(2.4rem,8vw,5.5rem)] text-white">Martin Nkole</span>
+          <span className="text-gradient block text-[clamp(2.4rem,8vw,5.5rem)]">Mwanza</span>
         </h1>
 
         <p className="mx-auto mb-10 max-w-lg text-base leading-relaxed font-light text-slate-300 md:text-lg">
