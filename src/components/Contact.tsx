@@ -62,7 +62,7 @@ export function Contact() {
             <Mail size={16} /> Email
           </a>
           <a
-            href="/cv/Nkole_Mwanza_CV.pdf"
+            href={`${import.meta.env.BASE_URL}cv/Nkole_Mwanza_CV.pdf`}
             download
             className="flex items-center gap-2 font-mono text-xs tracking-[0.15em] text-slate-300 transition-colors hover:text-cyan-300"
           >
