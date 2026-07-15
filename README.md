@@ -3,7 +3,7 @@
 Personal portfolio site, built with React 19, Vite, TypeScript, Tailwind CSS v4, and Framer Motion.
 Deployed to GitHub Pages via GitHub Actions on every push to `main`.
 
-Live at: https://nkole101.github.io
+Live at: https://nkole101.github.io/my-page/
 
 ## Stack
 
