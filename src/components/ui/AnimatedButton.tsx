@@ -14,11 +14,9 @@ interface AnimatedButtonProps {
 }
 
 const variants: Record<ButtonVariant, string> = {
-  primary:
-    "bg-accent text-bg font-semibold hover:bg-accent-hover",
-  secondary:
-    "glass text-text border-border-subtle hover:border-accent/30 hover:bg-white/[0.03]",
-  ghost: "text-text-secondary hover:text-text hover:bg-white/[0.04]",
+  primary: "text-accent font-medium hover:text-accent-light",
+  secondary: "text-text-secondary font-medium hover:text-text",
+  ghost: "text-text-muted font-medium hover:text-text-secondary",
 };
 
 export function AnimatedButton({
@@ -36,11 +34,10 @@ export function AnimatedButton({
       target={external ? "_blank" : undefined}
       rel={external ? "noreferrer" : undefined}
       download={download || undefined}
-      whileHover={{ scale: 1.02 }}
-      whileTap={{ scale: 0.98 }}
-      className={`inline-flex items-center justify-center gap-2 rounded-none px-6 py-3.5 text-sm transition-colors duration-200 ${variants[variant]} ${className}`}
+      whileHover={{ x: 2 }}
+      className={`inline-flex items-center gap-1.5 bg-transparent px-0 py-1 text-[11px] uppercase tracking-[0.18em] transition-colors duration-200 ${variants[variant]} ${className}`}
     >
-      {icon}
+      {icon && <span className="opacity-80">{icon}</span>}
       {children}
     </motion.a>
   );

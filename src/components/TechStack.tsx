@@ -10,7 +10,6 @@ import {
   Shield,
 } from "lucide-react";
 import { fadeUp, staggerContainer, viewportOnce } from "../lib/motion";
-import { SectionHeader } from "./ui/SectionHeader";
 
 const STACK = [
   { name: "React 19", icon: Layers, category: "Frontend" },
@@ -25,41 +24,39 @@ const STACK = [
 
 export function TechStack() {
   return (
-    <section id="stack" className="relative bg-surface/30 px-6 py-28 lg:px-8 lg:py-36" aria-labelledby="stack-heading">
-      <div className="mx-auto max-w-6xl">
-        <SectionHeader
-          label="Tech stack"
-          title="Tools I build with"
-          description="A modern, battle-tested stack for full-stack products, enterprise integrations, and scalable backend systems."
-        />
-        <h2 id="stack-heading" className="sr-only">
-          Technology stack
-        </h2>
-
-        <motion.div
-          initial="hidden"
-          whileInView="visible"
-          viewport={viewportOnce}
-          variants={staggerContainer}
-          className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4"
+    <div className="mx-auto w-full max-w-6xl" aria-labelledby="stack-heading">
+      <div className="mb-10 max-w-2xl">
+        <p className="mb-3 text-[11px] uppercase tracking-[0.2em] text-accent">Tech stack</p>
+        <h2
+          id="stack-heading"
+          className="font-display text-[clamp(1.75rem,4vw,3rem)] font-semibold leading-tight tracking-tight text-text"
         >
-          {STACK.map(({ name, icon: Icon, category }, i) => (
-            <motion.div
-              key={name}
-              variants={fadeUp}
-              transition={{ delay: i * 0.05 }}
-              whileHover={{ y: -6, transition: { duration: 0.2 } }}
-              className="glass group flex flex-col items-center rounded-3xl p-6 text-center transition-colors hover:border-accent/20"
-            >
-              <div className="mb-4 flex h-14 w-14 items-center justify-center rounded-2xl bg-accent/10 text-accent ring-1 ring-accent/20 transition-all group-hover:bg-accent/15 group-hover:ring-accent/40">
-                <Icon size={24} strokeWidth={1.5} />
-              </div>
-              <p className="font-display text-sm font-semibold text-text">{name}</p>
-              <p className="mt-1 text-xs text-text-muted">{category}</p>
-            </motion.div>
-          ))}
-        </motion.div>
+          Tools I build with
+        </h2>
       </div>
-    </section>
+
+      <motion.div
+        initial="hidden"
+        whileInView="visible"
+        viewport={viewportOnce}
+        variants={staggerContainer}
+        className="grid grid-cols-2 gap-3 sm:grid-cols-4"
+      >
+        {STACK.map(({ name, icon: Icon, category }, i) => (
+          <motion.div
+            key={name}
+            variants={fadeUp}
+            transition={{ delay: i * 0.04 }}
+            className="glass rounded-2xl p-4 text-center transition-transform hover:-translate-y-1"
+          >
+            <div className="mx-auto mb-3 flex h-10 w-10 items-center justify-center text-accent">
+              <Icon size={20} strokeWidth={1.5} />
+            </div>
+            <p className="text-xs font-semibold text-text">{name}</p>
+            <p className="mt-0.5 text-[10px] text-text-muted">{category}</p>
+          </motion.div>
+        ))}
+      </motion.div>
+    </div>
   );
 }

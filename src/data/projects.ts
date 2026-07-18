@@ -18,6 +18,8 @@ export interface Project {
   accent: string;
   previewGradient: string;
   previewLabel: string;
+  previewIcon?: string;
+  previewIconVariant?: "app" | "folder";
   repoUrl?: string;
   liveUrl?: string;
   private?: boolean;
@@ -39,9 +41,11 @@ export const PROJECTS: Project[] = [
     description:
       "A production-grade records system for St Gabriel Parish covering families, Small Christian Communities (SCCs), member profiles, and the full parish register — baptism, confirmation, marriage, communion, and death.",
     tech: ["React 19", "Vite", "Express", "PostgreSQL", "JWT", "bcrypt", "Framer Motion", "Recharts"],
-    accent: "#5a8f6b",
-    previewGradient: "linear-gradient(135deg, #0f1a14 0%, #050805 50%, #111612 100%)",
+    accent: "#60a5fa",
+    previewGradient: "linear-gradient(135deg, #0f2847 0%, #07101f 55%, #0a1628 100%)",
     previewLabel: "CCIS Dashboard",
+    previewIcon: "projects/ccis-icon.png",
+    previewIconVariant: "folder",
     private: true,
     caseStudy: {
       problem:
@@ -70,9 +74,11 @@ export const PROJECTS: Project[] = [
     description:
       "Real-time conversion across 150+ currencies with zero configuration. A shared OOP core (converter.py / api.py / utils.py / logger.py) powers both an argparse CLI and a thin FastAPI backend, with a React + Vite PWA frontend installable on iOS, Windows, and desktop browsers.",
     tech: ["Python", "FastAPI", "React", "Vite", "vite-plugin-pwa", "Workbox", "REST API"],
-    accent: "#4a7c59",
-    previewGradient: "linear-gradient(135deg, #0a1210 0%, #050805 45%, #0e1210 100%)",
+    accent: "#60a5fa",
+    previewGradient: "linear-gradient(135deg, #0b2a1a 0%, #07101f 50%, #0c1929 100%)",
     previewLabel: "Currency PWA",
+    previewIcon: "projects/currency-converter-icon.png",
+    previewIconVariant: "app",
     repoUrl: "https://github.com/Nkole101/currency-converter-cli",
     liveUrl: "https://currency-converter-cli.vercel.app",
     pwaGuide: [

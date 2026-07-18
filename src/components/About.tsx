@@ -1,14 +1,12 @@
 import { motion } from "framer-motion";
 import { Github, Linkedin, Mail } from "lucide-react";
 import { fadeUp, staggerContainer, viewportOnce } from "../lib/motion";
-import { SectionHeader } from "./ui/SectionHeader";
-import { StatCard } from "./ui/StatCard";
+import { AnimatedButton } from "./ui/AnimatedButton";
 
 const STATS = [
-  { val: "800+", label: "End users supported across deployments" },
-  { val: "6", label: "ERP modules customised in production" },
-  { val: "30+", label: "Custom DocTypes built and configured" },
-  { val: "3", label: "Client organisations served" },
+  { val: "800+", label: "End users supported" },
+  { val: "6", label: "ERP modules customised" },
+  { val: "30+", label: "Custom DocTypes built" },
 ];
 
 const SOCIAL = [
@@ -19,69 +17,68 @@ const SOCIAL = [
 
 export function About() {
   return (
-    <section id="about" className="relative px-6 py-28 lg:px-8 lg:py-36" aria-labelledby="about-heading">
-      <div className="mx-auto max-w-6xl">
-        <SectionHeader
-          label="About"
-          title="Engineering systems that scale"
-          description="Final-year Computer Science student with hands-on production experience across ERP development, full-stack engineering, and enterprise administration."
-        />
+    <div className="mx-auto w-full max-w-6xl" aria-labelledby="about-heading">
+      <motion.div
+        initial="hidden"
+        whileInView="visible"
+        viewport={viewportOnce}
+        variants={staggerContainer}
+      >
+        <motion.p variants={fadeUp} className="mb-4 text-[11px] uppercase tracking-[0.2em] text-accent">
+          About
+        </motion.p>
 
-        <div className="grid items-start gap-12 lg:grid-cols-[1.1fr_0.9fr] lg:gap-20">
-          <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={viewportOnce}
-            variants={staggerContainer}
-            className="space-y-6"
-          >
-            <motion.div variants={fadeUp} className="glass rounded-3xl p-8 md:p-10">
-              <h3 id="about-heading" className="sr-only">
-                About Martin Nkole Mwanza
-              </h3>
-              <div className="space-y-5 text-base leading-relaxed text-text-secondary">
-                <p>
-                  I'm a final-year Computer Science and Software Engineering student at the University
-                  of Zambia, with active production internship experience across ERP development,
-                  full-stack engineering, and enterprise system administration.
-                </p>
-                <p>
-                  By day I ship ERP customisations for client organisations. By night I'm building{" "}
-                  <strong className="font-medium text-text">CCIS</strong> — a full-stack parish records
-                  management system — as my capstone project.
-                </p>
-              </div>
+        <motion.h2
+          id="about-heading"
+          variants={fadeUp}
+          className="max-w-3xl font-display text-[clamp(2rem,5vw,3.75rem)] font-semibold leading-[1.08] tracking-tight text-text"
+        >
+          Over years of building — now shipping production systems for real organisations
+        </motion.h2>
 
-              <div className="mt-8 flex gap-3">
-                {SOCIAL.map(({ href, icon: Icon, label }) => (
-                  <a
-                    key={label}
-                    href={href}
-                    target={href.startsWith("mailto") ? undefined : "_blank"}
-                    rel="noreferrer"
-                    aria-label={label}
-                    className="glass flex h-11 w-11 items-center justify-center rounded-2xl text-text-secondary transition-colors hover:border-accent/30 hover:text-accent"
-                  >
-                    <Icon size={18} />
-                  </a>
-                ))}
-              </div>
-            </motion.div>
-          </motion.div>
+        <motion.div
+          variants={fadeUp}
+          className="mt-12 grid gap-10 border-t border-border-subtle pt-10 md:grid-cols-3"
+        >
+          {STATS.map(({ val, label }) => (
+            <div key={label}>
+              <p className="font-display text-4xl font-semibold text-accent md:text-5xl">{val}</p>
+              <p className="mt-2 text-sm text-text-secondary">{label}</p>
+            </div>
+          ))}
+        </motion.div>
 
-          <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={viewportOnce}
-            variants={staggerContainer}
-            className="grid grid-cols-2 gap-4"
-          >
-            {STATS.map(({ val, label }, i) => (
-              <StatCard key={label} value={val} label={label} delay={i * 0.08} />
+        <motion.div variants={fadeUp} className="mt-12 grid gap-10 lg:grid-cols-[1.2fr_0.8fr] lg:items-end">
+          <div className="max-w-2xl space-y-4 text-sm leading-relaxed text-text-secondary md:text-base">
+            <p>
+              Final-year Computer Science and Software Engineering student at the University of Zambia,
+              with production internship experience across ERP development, full-stack engineering, and
+              enterprise administration.
+            </p>
+            <p>
+              I ship ERP customisations by day and build{" "}
+              <strong className="font-medium text-text">CCIS</strong> — a full-stack parish records system
+              — as my capstone project.
+            </p>
+          </div>
+
+          <div className="flex flex-wrap items-center gap-6">
+            {SOCIAL.map(({ href, icon: Icon, label }) => (
+              <a
+                key={label}
+                href={href}
+                target={href.startsWith("mailto") ? undefined : "_blank"}
+                rel="noreferrer"
+                aria-label={label}
+                className="text-text-secondary transition-colors hover:text-accent"
+              >
+                <Icon size={18} />
+              </a>
             ))}
-          </motion.div>
-        </div>
-      </div>
-    </section>
+            <AnimatedButton href="#projects">View work</AnimatedButton>
+          </div>
+        </motion.div>
+      </motion.div>
+    </div>
   );
 }
