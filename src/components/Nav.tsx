@@ -1,69 +1,114 @@
 import { useEffect, useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X } from "lucide-react";
 
-const LINKS = ["About", "Experience", "Skills", "Projects", "Education", "Contact"];
+const LINKS = [
+  { label: "About", href: "#about" },
+  { label: "Projects", href: "#projects" },
+  { label: "Stack", href: "#stack" },
+  { label: "Experience", href: "#experience" },
+  { label: "Skills", href: "#skills" },
+  { label: "Contact", href: "#contact" },
+];
 
 export function Nav() {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 40);
+    const onScroll = () => setScrolled(window.scrollY > 24);
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
+  useEffect(() => {
+    document.body.style.overflow = open ? "hidden" : "";
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [open]);
+
   return (
-    <nav
-      className={`fixed inset-x-0 top-0 z-50 transition-all duration-300 ${
-        scrolled ? "bg-navy/85 backdrop-blur-lg shadow-[0_1px_0_rgba(255,255,255,0.08)]" : ""
-      }`}
-    >
-      <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
-        <a href="#hero" aria-label="Back to top" className="group flex items-center">
-          <span
-            className="block h-3 w-3 rotate-45 rounded-[3px] transition-transform duration-300 group-hover:rotate-[135deg]"
-            style={{ background: "linear-gradient(135deg, #818cf8, #22d3ee)" }}
-          />
-        </a>
+    <header className="fixed inset-x-0 top-0 z-50">
+      <nav
+        aria-label="Main navigation"
+        className={`transition-all duration-300 ${
+          scrolled ? "glass-strong border-b border-border-subtle shadow-[0_8px_32px_rgba(0,0,0,0.4)]" : "bg-transparent"
+        }`}
+      >
+        <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4 lg:px-8">
+          <a
+            href="#hero"
+            className="group flex items-center gap-2 font-display text-sm font-semibold tracking-tight text-text"
+            aria-label="Martin Nkole Mwanza — home"
+          >
+            <span className="flex h-8 w-8 items-center justify-center rounded-xl bg-accent/10 text-xs font-bold text-accent ring-1 ring-accent/20 transition-all group-hover:bg-accent/15 group-hover:ring-accent/40">
+              MN
+            </span>
+            <span className="hidden sm:inline">Martin Nkole</span>
+          </a>
 
-        <div className="hidden gap-8 md:flex">
-          {LINKS.map((item) => (
-            <a
-              key={item}
-              href={`#${item.toLowerCase()}`}
-              className="font-mono text-xs uppercase tracking-[0.2em] text-slate-300 transition-colors hover:text-cyan-300"
-            >
-              {item}
-            </a>
-          ))}
-        </div>
-
-        <button
-          className="text-slate-200 md:hidden"
-          onClick={() => setOpen((o) => !o)}
-          aria-label={open ? "Close menu" : "Open menu"}
-        >
-          {open ? <X size={22} /> : <Menu size={22} />}
-        </button>
-      </div>
-
-      {open && (
-        <div className="border-t border-white/10 bg-navy/95 backdrop-blur-lg md:hidden">
-          <div className="flex flex-col gap-4 px-6 py-5">
-            {LINKS.map((item) => (
+          <div className="hidden items-center gap-1 md:flex">
+            {LINKS.map((link) => (
               <a
-                key={item}
-                href={`#${item.toLowerCase()}`}
-                onClick={() => setOpen(false)}
-                className="font-mono text-sm uppercase tracking-[0.2em] text-slate-200 hover:text-cyan-300"
+                key={link.href}
+                href={link.href}
+                className="rounded-xl px-3.5 py-2 text-sm text-text-secondary transition-colors hover:bg-white/[0.04] hover:text-text"
               >
-                {item}
+                {link.label}
               </a>
             ))}
+            <a
+              href="#contact"
+              className="ml-3 rounded-none bg-accent px-4 py-2 text-sm font-semibold text-bg transition-colors hover:bg-accent-hover"
+            >
+              Hire me
+            </a>
           </div>
+
+          <button
+            type="button"
+            className="rounded-xl p-2 text-text-secondary transition-colors hover:bg-white/[0.06] hover:text-text md:hidden"
+            onClick={() => setOpen((o) => !o)}
+            aria-expanded={open}
+            aria-label={open ? "Close menu" : "Open menu"}
+          >
+            {open ? <X size={22} /> : <Menu size={22} />}
+          </button>
         </div>
-      )}
-    </nav>
+      </nav>
+
+      <AnimatePresence>
+        {open && (
+          <motion.div
+            initial={{ opacity: 0, y: -8 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -8 }}
+            transition={{ duration: 0.2 }}
+            className="glass-strong border-b border-border-subtle md:hidden"
+          >
+            <div className="flex flex-col gap-1 px-6 py-4">
+              {LINKS.map((link) => (
+                <a
+                  key={link.href}
+                  href={link.href}
+                  onClick={() => setOpen(false)}
+                  className="rounded-xl px-3 py-3 text-sm font-medium text-text-secondary transition-colors hover:bg-white/[0.04] hover:text-text"
+                >
+                  {link.label}
+                </a>
+              ))}
+              <a
+                href="#contact"
+                onClick={() => setOpen(false)}
+                className="mt-2 rounded-none bg-accent px-4 py-3 text-center text-sm font-semibold text-bg"
+              >
+                Hire me
+              </a>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </header>
   );
 }

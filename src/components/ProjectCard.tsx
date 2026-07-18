@@ -2,8 +2,10 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import { ChevronDown, ExternalLink, Github, Lock, Smartphone } from "lucide-react";
 import type { Project } from "../data/projects";
+import { fadeUp } from "../lib/motion";
 import { CaseStudyPanel } from "./CaseStudyPanel";
 import { PwaGuidePanel } from "./PwaGuidePanel";
+import { AnimatedButton } from "./ui/AnimatedButton";
 
 export function ProjectCard({ project, index }: { project: Project; index: number }) {
   const [expanded, setExpanded] = useState<"case-study" | "pwa" | null>(null);
@@ -11,113 +13,95 @@ export function ProjectCard({ project, index }: { project: Project; index: numbe
   const hasPwaGuide = Boolean(project.pwaGuide?.length);
 
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 32 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, amount: 0.15 }}
-      transition={{ duration: 0.6, delay: index * 0.08 }}
-      className="group rounded-2xl border border-slate-200 bg-white shadow-sm transition-shadow hover:shadow-lg"
+    <motion.article
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true, amount: 0.12 }}
+      variants={fadeUp}
+      transition={{ delay: index * 0.1 }}
+      className="group glass overflow-hidden rounded-3xl transition-all duration-300 hover:-translate-y-1 hover:border-white/10 hover:shadow-[0_24px_60px_-24px_rgba(0,0,0,0.7)]"
     >
       <div
-        className="h-[3px] w-full rounded-t-2xl"
-        style={{ background: `linear-gradient(90deg, ${project.accent}, transparent)` }}
-      />
-
-      <div className="p-6 md:p-8">
-        <div className="mb-3 flex items-start justify-between gap-4">
-          <div>
-            <p className="mb-1 font-mono text-[11px] tracking-[0.2em] text-slate-400 uppercase">{project.period}</p>
-            <h3 className="font-display text-xl font-bold text-slate-900 md:text-2xl">{project.title}</h3>
-          </div>
-          <div className="flex shrink-0 items-center gap-3">
-            {project.private && (
-              <span className="flex items-center gap-1.5 rounded-full bg-slate-100 px-3 py-1 font-mono text-[10px] tracking-wide text-slate-500 uppercase">
-                <Lock size={11} /> Private
-              </span>
-            )}
-            {project.liveUrl && (
-              <a
-                href={project.liveUrl}
-                target="_blank"
-                rel="noreferrer"
-                className="text-slate-400 transition-colors hover:text-indigo-500"
-                aria-label={`Open ${project.title} website`}
-              >
-                <ExternalLink size={19} />
-              </a>
-            )}
-            {project.repoUrl && (
-              <a
-                href={project.repoUrl}
-                target="_blank"
-                rel="noreferrer"
-                className="text-slate-400 transition-colors hover:text-indigo-500"
-                aria-label={`${project.title} on GitHub`}
-              >
-                <Github size={20} />
-              </a>
-            )}
+        className="relative aspect-[16/10] overflow-hidden border-b border-border-subtle"
+        style={{ background: project.previewGradient }}
+      >
+        <div className="absolute inset-0 flex items-end p-6 md:p-8">
+          <div className="glass rounded-2xl px-4 py-3">
+            <p className="text-xs font-medium uppercase tracking-wider text-text-secondary">{project.previewLabel}</p>
+            <p className="mt-1 font-display text-lg font-semibold text-text">{project.title.split("—")[0].trim()}</p>
           </div>
         </div>
+        {project.private && (
+          <span className="absolute right-4 top-4 flex items-center gap-1.5 rounded-xl bg-bg/60 px-3 py-1.5 text-xs font-medium text-text-secondary backdrop-blur-sm">
+            <Lock size={12} /> Private
+          </span>
+        )}
+      </div>
 
-        <p className="mb-3 text-[13px] font-medium" style={{ color: project.accent }}>
-          {project.tagline}
-        </p>
-        <p className="mb-6 text-[14px] leading-relaxed text-slate-600">{project.description}</p>
+      <div className="p-6 md:p-8">
+        <div className="mb-2 flex items-center justify-between gap-4">
+          <p className="text-xs font-medium uppercase tracking-wider text-accent">{project.period}</p>
+        </div>
 
-        <div className="mb-2 flex flex-wrap gap-1.5">
+        <h3 className="font-display text-xl font-semibold leading-snug text-text md:text-2xl">{project.title}</h3>
+        <p className="mt-2 text-sm font-medium text-text-secondary">{project.tagline}</p>
+        <p className="mt-4 text-sm leading-relaxed text-text-secondary">{project.description}</p>
+
+        <div className="mt-6 flex flex-wrap gap-2">
           {project.tech.map((tag) => (
             <span
               key={tag}
-              className="rounded-full bg-slate-100 px-2.5 py-1 font-mono text-[10px] tracking-wide text-slate-500 uppercase"
+              className="rounded-xl border border-border-subtle bg-surface/80 px-3 py-1 text-xs font-medium text-text-secondary"
             >
               {tag}
             </span>
           ))}
         </div>
 
-        <div className="mt-6 flex flex-wrap items-center gap-x-6 gap-y-3">
+        <div className="mt-8 flex flex-wrap gap-3">
           {project.liveUrl && (
-            <a
+            <AnimatedButton
               href={project.liveUrl}
-              target="_blank"
-              rel="noreferrer"
-              className="flex items-center gap-1.5 font-mono text-xs font-semibold tracking-wide text-indigo-500 hover:text-indigo-600"
+              external
+              variant="primary"
+              icon={<ExternalLink size={15} />}
+              className="!px-5 !py-2.5 !text-xs"
             >
-              Visit website
-              <ExternalLink size={13} />
-            </a>
+              Live demo
+            </AnimatedButton>
           )}
-
           {project.repoUrl && (
-            <a
+            <AnimatedButton
               href={project.repoUrl}
-              target="_blank"
-              rel="noreferrer"
-              className="flex items-center gap-1.5 font-mono text-xs font-semibold tracking-wide text-slate-500 hover:text-slate-700"
+              external
+              variant="secondary"
+              icon={<Github size={15} />}
+              className="!px-5 !py-2.5 !text-xs"
             >
-              View repository
-              <Github size={13} />
-            </a>
+              GitHub
+            </AnimatedButton>
           )}
+        </div>
 
+        <div className="mt-4 flex flex-wrap gap-4">
           {hasCaseStudy && (
             <button
+              type="button"
               onClick={() => setExpanded((e) => (e === "case-study" ? null : "case-study"))}
-              className="flex items-center gap-1.5 font-mono text-xs font-semibold tracking-wide text-indigo-500 hover:text-indigo-600"
+              className="flex items-center gap-1.5 text-xs font-medium text-accent transition-colors hover:text-accent-light"
             >
               {expanded === "case-study" ? "Hide case study" : "Read case study"}
               <ChevronDown size={14} className={`transition-transform ${expanded === "case-study" ? "rotate-180" : ""}`} />
             </button>
           )}
-
           {hasPwaGuide && (
             <button
+              type="button"
               onClick={() => setExpanded((e) => (e === "pwa" ? null : "pwa"))}
-              className="flex items-center gap-1.5 font-mono text-xs font-semibold tracking-wide text-indigo-500 hover:text-indigo-600"
+              className="flex items-center gap-1.5 text-xs font-medium text-text-secondary transition-colors hover:text-text"
             >
               <Smartphone size={13} />
-              {expanded === "pwa" ? "Hide install guide" : "Install as an app"}
+              {expanded === "pwa" ? "Hide install guide" : "Install guide"}
               <ChevronDown size={14} className={`transition-transform ${expanded === "pwa" ? "rotate-180" : ""}`} />
             </button>
           )}
@@ -130,6 +114,6 @@ export function ProjectCard({ project, index }: { project: Project; index: numbe
       {expanded === "pwa" && project.pwaGuide && (
         <PwaGuidePanel guide={project.pwaGuide} accent={project.accent} />
       )}
-    </motion.div>
+    </motion.article>
   );
 }

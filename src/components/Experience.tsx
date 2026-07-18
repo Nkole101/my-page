@@ -1,60 +1,66 @@
 import { motion } from "framer-motion";
 import { EXPERIENCE } from "../data/experience";
+import { fadeUp, staggerContainer, viewportOnce } from "../lib/motion";
+import { SectionHeader } from "./ui/SectionHeader";
 
 export function Experience() {
   return (
-    <section id="experience" className="bg-paper-dim px-6 py-24 md:py-32">
+    <section id="experience" className="relative px-6 py-28 lg:px-8 lg:py-36" aria-labelledby="experience-heading">
       <div className="mx-auto max-w-4xl">
-        <motion.div
-          initial={{ opacity: 0, y: 24 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.3 }}
-          transition={{ duration: 0.6 }}
-        >
-          <p className="mb-4 font-mono text-[11px] tracking-[0.4em] text-indigo-500 uppercase">02 — Experience</p>
-          <h2 className="mb-14 font-display text-4xl font-black leading-[0.95] text-slate-900 md:text-5xl">
-            On the job.
-          </h2>
-        </motion.div>
+        <SectionHeader
+          label="Experience"
+          title="Professional timeline"
+          description="Hands-on production work shipping ERP customisations and supporting enterprise deployments."
+        />
+        <h2 id="experience-heading" className="sr-only">
+          Work experience
+        </h2>
 
-        <div className="space-y-8">
+        <motion.div
+          initial="hidden"
+          whileInView="visible"
+          viewport={viewportOnce}
+          variants={staggerContainer}
+          className="relative space-y-0"
+        >
+          <div className="absolute bottom-0 left-[11px] top-2 w-px bg-gradient-to-b from-accent/60 via-border to-transparent md:left-[15px]" />
+
           {EXPERIENCE.map((entry, i) => (
-            <motion.div
-              key={entry.role}
-              initial={{ opacity: 0, y: 24 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.2 }}
-              transition={{ duration: 0.6, delay: i * 0.1 }}
-              className="rounded-2xl border border-slate-200 bg-white p-8 shadow-sm"
-            >
-              <div className="mb-1 flex flex-col justify-between gap-1 md:flex-row md:items-baseline">
-                <h3 className="font-display text-xl font-bold text-slate-900">{entry.role}</h3>
-                <span className="font-mono text-xs tracking-wide text-indigo-500">{entry.period}</span>
+            <motion.div key={entry.role} variants={fadeUp} transition={{ delay: i * 0.1 }} className="relative pb-12 pl-10 md:pl-12">
+              <div className="absolute left-0 top-2 flex h-[22px] w-[22px] items-center justify-center rounded-full border border-accent/40 bg-bg md:h-[30px] md:w-[30px]">
+                <div className="h-2 w-2 rounded-full bg-accent" />
               </div>
-              <p className="mb-5 text-sm text-slate-500">
-                {entry.org} · {entry.location}
-              </p>
-              <ul className="mb-6 space-y-2.5">
-                {entry.bullets.map((bullet) => (
-                  <li key={bullet} className="flex gap-3 text-[14px] leading-relaxed text-slate-600">
-                    <span className="mt-2 h-1 w-1 shrink-0 rounded-full bg-indigo-400" />
-                    {bullet}
-                  </li>
-                ))}
-              </ul>
-              <div className="flex flex-wrap gap-2">
-                {entry.tech.map((t) => (
-                  <span
-                    key={t}
-                    className="rounded-full bg-slate-100 px-3 py-1 font-mono text-[10px] tracking-wide text-slate-500 uppercase"
-                  >
-                    {t}
-                  </span>
-                ))}
+
+              <div className="glass rounded-3xl p-8 transition-all hover:border-white/10">
+                <div className="mb-1 flex flex-col justify-between gap-2 md:flex-row md:items-start">
+                  <h3 className="font-display text-xl font-semibold text-text">{entry.role}</h3>
+                  <span className="shrink-0 text-sm font-medium text-accent">{entry.period}</span>
+                </div>
+                <p className="mb-6 text-sm text-text-secondary">
+                  {entry.org} · {entry.location}
+                </p>
+                <ul className="mb-6 space-y-3">
+                  {entry.bullets.map((bullet) => (
+                    <li key={bullet} className="flex gap-3 text-sm leading-relaxed text-text-secondary">
+                      <span className="mt-2 h-1 w-1 shrink-0 rounded-full bg-accent" />
+                      {bullet}
+                    </li>
+                  ))}
+                </ul>
+                <div className="flex flex-wrap gap-2">
+                  {entry.tech.map((t) => (
+                    <span
+                      key={t}
+                      className="rounded-xl border border-border-subtle bg-surface/60 px-3 py-1 text-xs font-medium text-text-secondary"
+                    >
+                      {t}
+                    </span>
+                  ))}
+                </div>
               </div>
             </motion.div>
           ))}
-        </div>
+        </motion.div>
       </div>
     </section>
   );

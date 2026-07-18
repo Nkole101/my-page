@@ -16,6 +16,8 @@ export interface Project {
   description: string;
   tech: string[];
   accent: string;
+  previewGradient: string;
+  previewLabel: string;
   repoUrl?: string;
   liveUrl?: string;
   private?: boolean;
@@ -37,7 +39,9 @@ export const PROJECTS: Project[] = [
     description:
       "A production-grade records system for St Gabriel Parish covering families, Small Christian Communities (SCCs), member profiles, and the full parish register — baptism, confirmation, marriage, communion, and death.",
     tech: ["React 19", "Vite", "Express", "PostgreSQL", "JWT", "bcrypt", "Framer Motion", "Recharts"],
-    accent: "#6366f1",
+    accent: "#5a8f6b",
+    previewGradient: "linear-gradient(135deg, #0f1a14 0%, #050805 50%, #111612 100%)",
+    previewLabel: "CCIS Dashboard",
     private: true,
     caseStudy: {
       problem:
@@ -66,7 +70,9 @@ export const PROJECTS: Project[] = [
     description:
       "Real-time conversion across 150+ currencies with zero configuration. A shared OOP core (converter.py / api.py / utils.py / logger.py) powers both an argparse CLI and a thin FastAPI backend, with a React + Vite PWA frontend installable on iOS, Windows, and desktop browsers.",
     tech: ["Python", "FastAPI", "React", "Vite", "vite-plugin-pwa", "Workbox", "REST API"],
-    accent: "#06b6d4",
+    accent: "#4a7c59",
+    previewGradient: "linear-gradient(135deg, #0a1210 0%, #050805 45%, #0e1210 100%)",
+    previewLabel: "Currency PWA",
     repoUrl: "https://github.com/Nkole101/currency-converter-cli",
     liveUrl: "https://currency-converter-cli.vercel.app",
     pwaGuide: [

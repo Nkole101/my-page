@@ -1,5 +1,8 @@
 import { motion } from "framer-motion";
-import { GraduationCap, ShieldCheck } from "lucide-react";
+import { Award, GraduationCap } from "lucide-react";
+import { fadeUp, staggerContainer, viewportOnce } from "../lib/motion";
+import { GlassCard } from "./ui/GlassCard";
+import { SectionHeader } from "./ui/SectionHeader";
 
 const CERTIFICATIONS = [
   "CCNA – Introduction to Networks",
@@ -10,62 +13,59 @@ const CERTIFICATIONS = [
 
 export function Education() {
   return (
-    <section id="education" className="px-6 py-24 md:py-32">
+    <section id="education" className="relative px-6 py-28 lg:px-8 lg:py-36" aria-labelledby="education-heading">
       <div className="mx-auto max-w-4xl">
-        <motion.div
-          initial={{ opacity: 0, y: 24 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.3 }}
-          transition={{ duration: 0.6 }}
-        >
-          <p className="mb-4 font-mono text-[11px] tracking-[0.4em] text-indigo-500 uppercase">05 — Education</p>
-          <h2 className="mb-14 font-display text-4xl font-black leading-[0.95] text-slate-900 md:text-5xl">
-            Foundations.
-          </h2>
-        </motion.div>
+        <SectionHeader
+          label="Education"
+          title="Foundations & certifications"
+          description="Academic background and industry credentials that underpin my engineering practice."
+        />
+        <h2 id="education-heading" className="sr-only">
+          Education and certifications
+        </h2>
 
         <motion.div
-          initial={{ opacity: 0, y: 24 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.2 }}
-          transition={{ duration: 0.6 }}
-          className="mb-8 flex gap-5 rounded-2xl border border-slate-200 bg-white p-8 shadow-sm"
+          initial="hidden"
+          whileInView="visible"
+          viewport={viewportOnce}
+          variants={staggerContainer}
+          className="space-y-6"
         >
-          <GraduationCap className="mt-1 shrink-0 text-indigo-500" size={28} />
-          <div>
-            <h3 className="font-display text-xl font-bold text-slate-900">
-              B.Sc. Computer Science &amp; Software Engineering
-            </h3>
-            <p className="mb-3 text-sm text-slate-500">University of Zambia (UNZA) · Expected Nov 2026</p>
-            <p className="text-[14px] leading-relaxed text-slate-600">
-              Concentrations in AI &amp; Modelling, Database Management Systems, and Software Development.
-              Final-year capstone: <strong className="text-slate-900">CCIS — Catholic Community Information
-              System</strong> (see Projects).
-            </p>
-          </div>
-        </motion.div>
+          <GlassCard className="flex gap-5 p-8 md:p-10" delay={0}>
+            <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-accent/10 text-accent ring-1 ring-accent/20">
+              <GraduationCap size={22} />
+            </div>
+            <div>
+              <h3 className="font-display text-xl font-semibold text-text">
+                B.Sc. Computer Science &amp; Software Engineering
+              </h3>
+              <p className="mt-2 text-sm text-text-secondary">University of Zambia (UNZA) · Expected Nov 2026</p>
+              <p className="mt-4 text-sm leading-relaxed text-text-secondary">
+                Concentrations in AI &amp; Modelling, Database Management Systems, and Software Development.
+                Final-year capstone:{" "}
+                <strong className="font-medium text-text">CCIS — Catholic Community Information System</strong>.
+              </p>
+            </div>
+          </GlassCard>
 
-        <motion.div
-          initial={{ opacity: 0, y: 24 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.2 }}
-          transition={{ duration: 0.6, delay: 0.1 }}
-          className="rounded-2xl border border-slate-200 bg-white p-8 shadow-sm"
-        >
-          <div className="mb-4 flex items-center gap-3">
-            <ShieldCheck className="text-indigo-500" size={22} />
-            <h3 className="font-display text-lg font-bold text-slate-900">Certifications</h3>
-          </div>
-          <div className="flex flex-wrap gap-2">
-            {CERTIFICATIONS.map((cert) => (
-              <span
-                key={cert}
-                className="rounded-full border border-slate-200 px-3.5 py-1.5 text-[13px] text-slate-600"
-              >
-                {cert}
-              </span>
-            ))}
-          </div>
+          <GlassCard className="p-8 md:p-10" delay={0.1}>
+            <div className="mb-6 flex items-center gap-3">
+              <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-accent/10 text-accent">
+                <Award size={18} />
+              </div>
+              <h3 className="font-display text-lg font-semibold text-text">Certifications</h3>
+            </div>
+            <motion.div variants={fadeUp} className="flex flex-wrap gap-2">
+              {CERTIFICATIONS.map((cert) => (
+                <span
+                  key={cert}
+                  className="rounded-xl border border-border-subtle bg-bg/40 px-4 py-2 text-sm text-text-secondary transition-colors hover:border-accent/25 hover:text-text"
+                >
+                  {cert}
+                </span>
+              ))}
+            </motion.div>
+          </GlassCard>
         </motion.div>
       </div>
     </section>
